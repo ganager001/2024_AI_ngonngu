@@ -272,7 +272,7 @@ $(document).ready(function(){
 	$('.post-detail').on('click', function () {
 		var articleId = $(this).data('id');
 		$.ajax({
-			url: `http://127.0.0.1:8000/custommers/post/${articleId}/`,
+			url: `http://127.0.0.1:8000/custommer/post/${articleId}/`,
 			method: 'GET',
 			success: function (data) {
 				$('#articleTitle').text(data.title);
@@ -295,7 +295,7 @@ $(document).ready(function(){
 	$('.word-eparation').on('click', function () {
 		var articleId = $(this).data('id');
 		$.ajax({
-			url: `http://127.0.0.1:8000/custommers/wordseparation/${articleId}/`,
+			url: `http://127.0.0.1:8000/custommer/wordseparation/${articleId}/`,
 			method: 'GET',
 			success: function (data) {
 				$('#articleTitle').text(data.title);
@@ -317,7 +317,7 @@ $(document).ready(function(){
 	$('.sticker-detail').on('click', function () {
 		var articleId = $(this).data('id');
 		$.ajax({
-			url: `http://127.0.0.1:8000/custommers/sticker/${articleId}/`,
+			url: `http://127.0.0.1:8000/custommer/sticker/${articleId}/`,
 			method: 'GET',
 			success: function (data) {
 				$('#articleTitle').text(data.title);
@@ -336,6 +336,24 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	function updateSystemInfo() {
+		$.ajax({
+			url: systemInfoUrl,
+			method: "GET",
+			success: function(data) {
+				$("#current_cpu").text(data.cpu_percent + ' %');
+				$("#cpu_percent").attr("value", data.cpu_percent);
+				$("#memory_used").attr("value", data.memory_used);
+				$("#current_ram").text(data.memory_used + ' %');
+				$("#current_disk").text(data.disk_used + ' %');
+				$("#disk_used").attr("value", data.disk_used);
+			}
+		});
+	}
+
+	updateSystemInfo(); // Initial call
+	setInterval(updateSystemInfo, 3000); // Update every 5 seconds
 	
 });
 document.addEventListener('DOMContentLoaded', function () {

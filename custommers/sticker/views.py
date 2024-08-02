@@ -3,14 +3,13 @@ import json
 import os
 from django.conf import settings
 from django.http import JsonResponse
-from django.http import HttpResponse
 from common import *
 from django.contrib.auth.decorators import login_required
 
 
 
 def read_json_file():
-    file_path = os.path.join(settings.BASE_DIR, 'common\\data-pos.json')
+    file_path = os.path.join(settings.BASE_DIR, 'common\\data_tach_tu.json')
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
     return data
@@ -26,7 +25,7 @@ def index(request):
 
 @login_required()
 def detail(request, id):
-    file_path = os.path.join(settings.BASE_DIR, 'common\\data-pos.json')
+    file_path = os.path.join(settings.BASE_DIR, 'common\\data_tach_tu.json')
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         article = next((item for item in data if item["id"] == id), None)

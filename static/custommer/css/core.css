@@ -9924,6 +9924,11 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
 .content-wrapper.show-more .show-more-btn {
   display: block; /* Hiển thị nút khi cần */
 }
+
+.current-page{
+  color: #2005ed;
+}
+
 /* =================================================================
   Animations
 ================================================================= */

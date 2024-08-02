@@ -1,0 +1,112 @@
+
+<div class="content-data">
+    <div class="row">
+        <div class="col-md-4" style="padding-right: 0;">
+            <div class="box box-block bg-white">
+                <h4>Thống kê</h4>
+                <div class="box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-danger"><i class="ti-shopping-cart-full"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Optimal Epsilon</h6>
+                        <h1 class="mb-0">{{ items.stats.optimal_eps }}</h1>
+                    </div>
+                </div>
+                <div class="box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-success"><i class="ti-bar-chart"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Min Points</h6>
+                        <h1 class="mb-0">{{ items.stats.min_pts }}</h1>
+                    </div>
+                </div>
+                <div class="box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-primary"><i class="ti-package"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Số cụm</h6>
+                        <h1 class="mb-0">{{ items.stats.num_clusters }}</h1>
+                    </div>
+                </div>
+                <div class="box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-warning"><i class="ti-receipt"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Số điểm nhiễu</h6>
+                        <h1 class="mb-0">{{ items.stats.num_noise }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="box box-block bg-white">
+                <h4>Biểu đồ phân cụm</h4>
+                <img src="data:image/png;base64,{{ items.plot_base64 }}" alt="Cluster Plot"
+                    style="max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+    <div class="box box-block bg-white">
+        <h5>Kết quả phân cụm</h5>
+        <p class="font-90 text-muted mb-1">Mỗi cụm chủ đề là tập hợp các <code>tiêu đề bài viết</code> liên quan.
+        </p>
+        <div class="row">
+            <div class="col-md-12 mb-1 mb-md-0">
+                <div class="nav nav-tabs">
+                    <div class="container-content">
+                        <ul class="nav nav-tabs mb-0-5" role="tablist">
+                            {% for item in items.cluster_results %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if forloop.first %}active{% endif %}" data-toggle="tab"
+                                    href="#tab{{ forloop.counter }}" role="tab">{{ item.cluster }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for item in items.cluster_results %}
+                            <div class="tab-pane {% if forloop.first %}active show{% endif %}"
+                                id="tab{{ forloop.counter }}" role="tabpanel">
+                                {% for title in item.titles %}
+                                <p>{{title}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-block bg-white">
+        <h5 class="mb-1">Chi tiết kết quả</h5>
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Time</th>
+                    <th>Cluster</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items.results %}
+                    <tr class="item-page-{{ forloop.counter0|divisibleby:10 }}">
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.time }}</td>
+                        <td>{{ item.cluster }}</td>
+                        <td><a href="{{ item.url }}" target="_blank">Link</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                <a class="page-link" id="first-page">&laquo; Đầu</a>
+                <a class="page-link" id="prev-page">Trước</a>
+                <span id="page-numbers"></span>
+                <a class="page-link" id="next-page">Sau</a>
+                <a class="page-link" id="last-page">Cuối &raquo;</a>
+            </span>
+        </div>
+        
+    </div>
+</div>

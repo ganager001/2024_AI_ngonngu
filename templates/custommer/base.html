@@ -14,6 +14,7 @@
     <title>AI Content</title>
 
     <!-- Vendor CSS -->
+
     <link rel="stylesheet" href="{% static 'custommer/vendor/bootstrap4/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/themify-icons/themify-icons.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/font-awesome/css/font-awesome.min.css' %}">
@@ -22,12 +23,15 @@
     <link rel="stylesheet" href="{% static 'custommer/vendor/waves/waves.min.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/switchery/dist/switchery.min.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/DataTables/css/dataTables.bootstrap4.min.css' %}">
+    {% block header %}
+    {% endblock %}
     <link rel="stylesheet"
         href="{% static 'custommer/vendor/DataTables/Responsive/css/responsive.bootstrap4.min.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/DataTables/Buttons/css/buttons.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'custommer/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css' %}">
     <!-- Neptune CSS -->
     <link rel="stylesheet" href="{% static 'custommer/css/core.css' %}">
+
 </head>
 
 <body class="fixed-sidebar fixed-header content-appear skin-default">
@@ -43,7 +47,7 @@
                 <ul class="sidebar-menu">
                     <li class="menu-title">Trang chủ</li>
                     <li>
-                        <a href="{% url 'custommers' %}" class="waves-effect  waves-light">
+                        <a href="{% url 'custommer' %}" class="waves-effect  waves-light">
                             <span class="s-icon"><i class="ti-anchor"></i></span>
                             <span class="s-text">Thống kê</span>
                         </a>
@@ -69,33 +73,32 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect  waves-light">
+                        <a href="{%url 'clustering'%}" class="waves-effect  waves-light">
                             <span class="s-icon"><i class="ti-view-grid"></i></span>
                             <span class="s-text">Phân cụm</span>
                         </a>
                     </li>
-                    <li class="menu-title compact-hide">Tài nguyên hệ thống</li>
+                    <li class="menu-title compact-hide">Thông tin hệ thống</li>
                     <li class="compact-hide">
                         <div class="progress-widget progress-widget-light">
                             <div class="mb-0-5">
                                 CPU
-                                <span id="cpu" class="float-xs-right"></span>
+                                <span class="float-xs-right" id="current_cpu"></span>
                             </div>
-                            <progress id="cpuProgress"
-                                class="progress progress-rounded progress-danger progress-sm mb-0-5" value=""
-                                max="100">100%</progress>
+                            <progress class="progress progress-rounded progress-danger progress-sm mb-0-5"
+                                id="cpu_percent" value="0" max="100">100%</progress>
                             <div class="mb-0-5">
                                 RAM
-                                <span id="memory" class="float-xs-right"></span>
+                                <span class="float-xs-right" id="current_ram"></span>
                             </div>
-                            <progress id="memoryProgress" class="progress progress-rounded progress-success progress-sm"
-                                value="" max="100">100%</progress>
+                            <progress class="progress progress-rounded progress-sm mb-0-5" id="memory_used" value="0"
+                                max="100">100%</progress>
                             <div class="mb-0-5">
-                                DISK
-                                <span id="disk" class="float-xs-right"></span>
+                                SSD
+                                <span class="float-xs-right" id="current_disk"></span>
                             </div>
-                            <progress id="diskProgress" class="progress progress-rounded progress-success progress-sm"
-                                value="" max="100">100%</progress>
+                            <progress class="progress progress-rounded progress-success progress-sm" id="disk_used"
+                                value="0" max="100">100%</progress>
                         </div>
                     </li>
                 </ul>
@@ -744,7 +747,7 @@
                 <div class="container-fluid">
                     <div class="row text-xs-center">
                         <div class="col-sm-4 text-sm-left mb-0-5 mb-sm-0">
-                            2016 © Neptune
+                            2024 © Neptune
                         </div>
                         <div class="col-sm-8 text-sm-right">
                             <ul class="nav nav-inline l-h-2">
@@ -799,30 +802,18 @@
     <script type="text/javascript"
         src="{% static 'custommer/vendor/DataTables/Buttons/js/buttons.colVis.min.js' %}"></script>
 
-    <!-- Neptune JS -->
+
     <script>
-        const cpuSpan = document.getElementById('cpu');
-        const memorySpan = document.getElementById('memory');
-        const cpuProgress = document.getElementById('cpuProgress');
-        const memoryProgress = document.getElementById('memoryProgress');
-        const diskSpan = document.getElementById('disk');
-        const diskProgress = document.getElementById('diskProgress');
-
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/system-stats/');
-
-        socket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
-            cpuSpan.innerText = data.cpu + '%';
-            diskSpan.innerText = data.disk + '%';
-            memorySpan.innerText = data.memory + '%';
-            cpuProgress.value = data.cpu;
-            diskProgress.value = data.disk;
-            memoryProgress.value = data.memory;
-        };
+        var systemInfoUrl = "{% url 'system_info' %}";
     </script>
+    <!-- Neptune JS -->
+
     <script type="text/javascript" src="{% static 'custommer/js/app.js' %}"></script>
     <script type="text/javascript" src="{% static 'custommer/js/demo.js' %}"></script>
     <script type="text/javascript" src="{% static 'custommer/js/tables-datatable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'custommer/js/forms-pickers.js' %}"></script>
+    {% block footer %}
+    {% endblock%}
 
 </body>
 

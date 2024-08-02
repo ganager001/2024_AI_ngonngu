@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Title -->
+	<title>Neptune</title>
+
+	<!-- Vendor CSS -->
+	<link rel="stylesheet" href="{% static 'custommer/vendor/bootstrap4/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'custommer/vendor/themify-icons/themify-icons.css' %}">
+	<link rel="stylesheet" href="{% static 'custommer/vendor/font-awesome/css/font-awesome.min.css' %}">
+
+	<!-- Neptune CSS -->
+	<link rel="stylesheet" href="{% static 'custommer/css/core.css' %}">
+</head>
+
+<body id="login-body" class="img-cover">
+
+	<div class="container-fluid">
+		<div class="sign-form">
+			<div class="row">
+				<div class="col-md-4 offset-md-4 px-3">
+					<div class="box b-a-0">
+						<div class="p-2 text-xs-center">
+							<h5>Chào mừng bạn đến với trang đăng nhập</h5>
+						</div>
+						<form class="form-material mb-1" method="post">
+							{% csrf_token %}
+							<div class="form-group">
+								<input type="text" name="username" class="form-control" id="exampleInputEmail"
+									placeholder="Email">
+							</div>
+							<div class="form-group">
+								<input type="password" name="password" class="form-control" id="exampleInputPassword"
+									placeholder="Password">
+							</div>
+							<div class="px-2 form-group mb-0">
+								<button type="submit" class="btn btn-purple btn-block text-uppercase">Đăng
+									nhập</button>
+							</div>
+						</form>
+						<!-- <div class="px-2">
+							<div class="row">
+								<div class="col-xs-6">
+									<button type="button" class="btn bg-facebook btn-block label-left mb-0-25">
+										<span class="btn-label"><i class="ti-facebook"></i></span>
+										Facebook
+									</button>
+								</div>
+								<div class="col-xs-6">
+									<button type="button" class="btn bg-googleplus btn-block label-left mb-0-25">
+										<span class="btn-label"><i class="ti-google"></i></span>
+										Google+
+									</button>
+								</div>
+							</div>
+						</div> -->
+						<div class="p-2 text-xs-center text-muted">
+							Don't have an account? <a class="text-black" href="pages-sign-in.html#"><span
+									class="underline">Sign up</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Vendor JS -->
+	<script type="text/javascript" src="{% static 'custommer/vendor/jquery/jquery-1.12.3.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'custommer/vendor/tether/js/tether.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'custommer/vendor/bootstrap4/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

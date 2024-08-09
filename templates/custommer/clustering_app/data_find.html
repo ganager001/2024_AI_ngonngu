@@ -1,4 +1,4 @@
-
+{% load custom_filters %}
 <div class="content-data">
     <div class="row">
         <div class="col-md-4" style="padding-right: 0;">
@@ -88,7 +88,7 @@
             </thead>
             <tbody>
                 {% for item in items.results %}
-                    <tr class="item-page-{{ forloop.counter0|divisibleby:10 }}">
+                    <tr class="item-page" data-page = "{{ forloop.counter0|division:10 }}">
                         <th scope="row">{{ item.id }}</th>
                         <td>{{ item.title }}</td>
                         <td>{{ item.time }}</td>
@@ -100,11 +100,11 @@
         </table>
         <div class="pagination">
             <span class="step-links">
-                <a class="page-link" id="first-page">&laquo; Đầu</a>
-                <a class="page-link" id="prev-page">Trước</a>
+                <a class="page-link pageDisabled" id="first-page">&laquo; Đầu</a>
+                <a class="page-link pageDisabled" id="prev-page">Trước</a>
                 <span id="page-numbers"></span>
                 <a class="page-link" id="next-page">Sau</a>
-                <a class="page-link" id="last-page">Cuối &raquo;</a>
+                <a class="page-link" id="last-page" data-page="">Cuối &raquo;</a>
             </span>
         </div>
         

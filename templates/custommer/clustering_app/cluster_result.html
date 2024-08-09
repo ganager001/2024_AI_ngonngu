@@ -83,6 +83,9 @@
                     $('#loading-message').hide();
                     navlinkClick(); // Gắn lại sự kiện cho nav-link
                     attachToggleEvents(); // Gắn lại sự kiện cho toggle
+                    $('.item-page').hide();
+                    $('.item-page[data-page="1"]').show();
+                    panigations(currentPage);
                 }
             });
         });
@@ -123,6 +126,128 @@
         // Gọi các hàm lần đầu tiên
         attachToggleEvents();
         navlinkClick();
+        function loadPage(totalPage,page){
+            let output = '';
+            if (totalPage <= 5) {
+                for (let i = 1; i <= totalPage; i++) {
+                    let active = '';
+                    if (page === i) {
+                        active = 'active';
+                    }
+                    output += `<a class='page-link ${active}'>${i}</a>`;
+                }
+            } else {
+                if (page <= 2) {
+                    for (let i = 1; i <= 3; i++) {
+                        let active = '';
+                        if (page === i) {
+                            active = 'active';
+                        }
+                        output += `<a class='page-link ${active}'>${i}</a>`;
+                    }
+                    output += "<a class='page-link continueLink'>...</a>";
+                    output += `<a class='page-link'>${totalPage}</a>`;
+                } else if (page <= totalPage - 5) {
+                    for (let i = page; i <= page + 2; i++) {
+                        let active = '';
+                        if (page === i) {
+                            active = 'active';
+                        }
+                        output += `<a class='page-link ${active}'>${i}</a>`;
+                    }
+                    output += "<a class='page-link continueLink'>...</a>";
+                    output += `<a class='page-link'>${totalPage}</a>`;
+                } else if (page <= totalPage - 2) {
+                    for (let i = totalPage - 4; i <= totalPage; i++) {
+                        let active = '';
+                        if (page === i) {
+                            active = 'active';
+                        }
+                        output += `<a class='page-link ${active}'>${i}</a>`;
+                    }
+                } else {
+                    output += `<a class='page-link'>1</a>`;
+                    output += "<a class='page-link continueLink'>...</a>";
+                    for (let i = totalPage - 2; i <= totalPage; i++) {
+                        let active = '';
+                        if (page === i) {
+                            active = 'active';
+                        }
+                        output += `<a class='page-link ${active}'>${i}</a>`;
+                    }
+                }
+            }
+            return output;
+        }
+        // phân trang
+        var currentPage = 1;
+        function showPagination(currentPage){
+            $('.item-page').hide();
+            $('.item-page[data-page="' + currentPage + '"]').show();
+        }
+
+        function showPageNumber(totalPage, currentPage){
+            $('#page-numbers').html('');
+            if(currentPage == 1)
+            {
+                $('#prev-page').addClass('pageDisabled');
+                $('#first-page').addClass('pageDisabled');
+                $('#next-page').removeClass('pageDisabled');
+                $('#last-page').removeClass('pageDisabled');
+            }
+            else if(currentPage == totalPage)
+            {
+                $('#prev-page').removeClass('pageDisabled');
+                $('#first-page').removeClass('pageDisabled');
+                $('#next-page').addClass('pageDisabled');
+                $('#last-page').addClass('pageDisabled');
+            }
+            else if(1 < currentPage < totalPage)
+            {
+                $('#prev-page').removeClass('pageDisabled');
+                $('#first-page').removeClass('pageDisabled');
+                $('#next-page').removeClass('pageDisabled');
+                $('#last-page').removeClass('pageDisabled');
+            }
+            else{}
+            $('#page-numbers').append(loadPage(totalPage, currentPage));
+        }
+
+        function panigations(currentPage){
+            var totalPage = $('.item-page:last-child').attr('data-page');
+            $('#page-numbers').append(loadPage(totalPage, currentPage));
+
+            $('#page-numbers').on('click', 'a', function () {
+                let page = parseInt($(this).html());
+                currentPage = page;
+                showPagination(page);
+                showPageNumber(totalPage, page);
+            });
+
+            document.getElementById('first-page').addEventListener('click', function () {
+                currentPage = 1;
+                showPagination(currentPage);
+                showPageNumber(totalPage, 1);
+            });
+            document.getElementById('prev-page').addEventListener('click', function () {
+                currentPage = currentPage == 1 ? currentPage : --currentPage;
+                showPageNumber(totalPage, currentPage);
+                showPagination(currentPage);
+            });
+            document.getElementById('next-page').addEventListener('click', function () {
+                let lastPage = $('.item-page:last-child').attr('data-page');
+                currentPage ++;
+                showPageNumber(totalPage, currentPage);
+                showPagination(currentPage);
+            });
+            document.getElementById('last-page').addEventListener('click', function () {
+                currentPage = $('.item-page:last-child').attr('data-page');
+                showPageNumber(totalPage, currentPage);
+                showPagination(currentPage);
+            });
+
+        }
+        panigations(currentPage);
     });
 </script>
 

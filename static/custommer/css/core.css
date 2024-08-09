@@ -9929,6 +9929,27 @@ a.text-grey:focus .underline, a.text-grey:hover .underline {
   color: #2005ed;
 }
 
+
+
+.item-page{
+  user-select: none;
+}
+#page-numbers .active{
+  background-color: #00aff0;
+  color: #fff;
+}
+
+.continueLink{
+  pointer-events: none;
+  user-select: none;
+}
+
+.pageDisabled{
+  color: #fff !important;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  pointer-events: none;
+}
 /* =================================================================
   Animations
 ================================================================= */

@@ -74,9 +74,9 @@ def plot_clusters(tfidf_matrix, clusters):
         cluster_points = reduced_data[clusters == cluster]
         plt.scatter(cluster_points[:, 0], cluster_points[:, 1], c=[color], label=label, s=30, alpha=alpha)
 
-    plt.xlabel('Thành phần PCA 1', fontsize=10)
-    plt.ylabel('Thành phần PCA 2', fontsize=10)
-    plt.title('Kết quả phân cụm bằng thuật toán DBSCAN cải tiến', fontsize=14)
+    #plt.xlabel('Thành phần PCA 1', fontsize=10)
+    #plt.ylabel('Thành phần PCA 2', fontsize=10)
+    plt.title('Kết quả phân cụm bằng thuật toán DBSCAN cải tiến', fontsize=18)
     plt.legend(fontsize=8, bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     

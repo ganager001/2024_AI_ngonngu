@@ -1,0 +1,96 @@
+{% extends 'custommer/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<link rel="stylesheet" href="{% static 'custommer/vendor/vendor/clockpicker/dist/bootstrap-clockpicker.min.css' %}">
+<link rel="stylesheet"
+    href="{% static 'custommer/vendor/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
+
+<link rel="stylesheet"
+    href="{% static 'custommer/vendor/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'custommer/vendor/vendor/bootstrap-daterangepicker/daterangepicker.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 24px; text-align: left;">Kết quả độ nóng của chủ đề</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-block bg-white">
+            <h5>Tính toán độ nóng theo thời gian</h5>
+            <p class="font-90 text-muted mb-1">Lựa chọn thời gian để xử lý dữ liệu.</p>
+            <form id="form-date">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-1">
+                            <h6>Thời gian bắt đầu</h6>
+                            <div class="input-group">
+                                <input type="text" name="start-date" class="form-control mydatepicker"
+                                    placeholder="mm/dd/yyyy">
+                                <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-1">
+                            <h6>Thời gian kết thúc</h6>
+                            <div class="input-group">
+                                <input type="text" name="end-date" class="form-control mydatepicker"
+                                    placeholder="mm/dd/yyyy">
+                                <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-min-md mb-0-25 waves-effect waves-light">Thực hiện</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="loading-message" style="display: none;">
+    <div class="box box-block py-1 bg-warning text-xs-center mb-1">
+        <span class="arrow arrow-top arrow-warning"></span>
+        Đang xử lý dữ liệu...
+    </div>
+</div>
+<div id="data-container"></div>
+
+<div style="overflow-x: auto; margin-top: 20px;">
+    <div class="box box-block bg-white" style="padding: 20px;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #ffffff;"> <!-- Đổi màu nền hàng đầu tiên thành trắng -->
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cụm chủ đề</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>1</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>2</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>l</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>c</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>s</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Số bài viết</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Tổng likes</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Tổng comments</th>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Keywords</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in hotness_data %}
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Cum_chu_de }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H1 }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H2 }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hl }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hc }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hs }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.So_bai_viet }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Tong_likes }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Tong_comments }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ item.Keywords }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

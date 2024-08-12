@@ -474,13 +474,13 @@ a.link-detail:hover::after {
 .site-header .navbar-brand .logo {
   width: 100px;
   height: 25px;
-  background: url(../img/logo.png) no-repeat;
+  background: url(../img/logo1.png) no-repeat;
 }
 
 @media (min-width: 768px) {
   .compact-sidebar .site-header .navbar-brand .logo {
     width: 25px;
-    background: url(../img/logo-small.png) no-repeat;
+    background: url(../img/logo1.png) no-repeat;
   }
 }
 
@@ -1372,7 +1372,7 @@ a.link-detail:hover::after {
 }
 
 .skin-3 .site-header .navbar-brand .logo {
-  background: url(../img/logo-second.png) no-repeat;
+  background: url(../img/logo.jpg) no-repeat;
 }
 
 /* Skin 1 */
@@ -1408,7 +1408,7 @@ a.link-detail:hover::after {
 }
 
 .skin-4 .site-header .navbar-brand .logo {
-  background: url(../img/logo-second.png) no-repeat;
+  background: url(../img/logo.jpg) no-repeat;
 }
 
 /* Skin 5 */

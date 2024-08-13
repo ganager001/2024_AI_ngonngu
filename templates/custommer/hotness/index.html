@@ -2,18 +2,15 @@
 {% load static %}
 
 {% block header %}
-
 <link rel="stylesheet" href="{% static 'custommer/vendor/vendor/clockpicker/dist/bootstrap-clockpicker.min.css' %}">
-<link rel="stylesheet"
-    href="{% static 'custommer/vendor/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
-
-<link rel="stylesheet"
-    href="{% static 'custommer/vendor/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'custommer/vendor/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'custommer/vendor/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}">
 <link rel="stylesheet" href="{% static 'custommer/vendor/vendor/bootstrap-daterangepicker/daterangepicker.css' %}">
 {% endblock %}
 
 {% block content %}
 <h1 style="font-size: 24px; text-align: left;">Kết quả độ nóng của chủ đề</h1>
+
 <div class="row">
     <div class="col-md-12">
         <div class="box box-block bg-white">
@@ -25,8 +22,7 @@
                         <div class="mb-1">
                             <h6>Thời gian bắt đầu</h6>
                             <div class="input-group">
-                                <input type="text" name="start-date" class="form-control mydatepicker"
-                                    placeholder="mm/dd/yyyy">
+                                <input type="text" name="start-date" class="form-control mydatepicker" placeholder="mm/dd/yyyy">
                                 <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
                             </div>
                         </div>
@@ -35,8 +31,7 @@
                         <div class="mb-1">
                             <h6>Thời gian kết thúc</h6>
                             <div class="input-group">
-                                <input type="text" name="end-date" class="form-control mydatepicker"
-                                    placeholder="mm/dd/yyyy">
+                                <input type="text" name="end-date" class="form-control mydatepicker" placeholder="mm/dd/yyyy">
                                 <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>
                             </div>
                         </div>
@@ -47,19 +42,21 @@
         </div>
     </div>
 </div>
+
 <div id="loading-message" style="display: none;">
     <div class="box box-block py-1 bg-warning text-xs-center mb-1">
         <span class="arrow arrow-top arrow-warning"></span>
         Đang xử lý dữ liệu...
     </div>
 </div>
+
 <div id="data-container"></div>
 
 <div style="overflow-x: auto; margin-top: 20px;">
     <div class="box box-block bg-white" style="padding: 20px;">
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
-                <tr style="background-color: #ffffff;"> <!-- Đổi màu nền hàng đầu tiên thành trắng -->
+                <tr style="background-color: #ffffff;">
                     <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cụm chủ đề</th>
                     <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H</th>
                     <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>1</sub></th>
@@ -93,4 +90,24 @@
         </table>
     </div>
 </div>
+
+<!-- Block mới thêm vào bên dưới bảng kết quả -->
+<div class="row" style="margin-top: 40px;">
+    {% for item in circle_images %}
+    <div class="col-md-6">
+        <div class="box box-block bg-white" style="padding: 20px;">
+            <h5>{{ item.topic }}</h5>
+            <p>Tổng likes: {{ item.total_likes }}</p>
+            <p>Tổng comments: {{ item.total_comments }}</p>
+            <p>Keywords: {{ item.keywords }}</p>
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="box box-block bg-white" style="padding: 20px;">
+            <img src="data:image/png;base64,{{ item.image }}" alt="{{ item.topic }}" />
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

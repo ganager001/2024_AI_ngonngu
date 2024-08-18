@@ -5,9 +5,10 @@ import io
 import base64
 from django.shortcuts import render
 from cores.xl_do_nong import calculate_hotness
+from django.contrib.auth.decorators import login_required
 
-def prepare_hotness_data(input_file):
-    results = calculate_hotness(input_file)
+def prepare_hotness_data(start_date,end_date):
+    results = calculate_hotness(start_date,end_date)
     hotness_data = results.to_dict('records')
     
     chart_data = []
@@ -54,16 +55,22 @@ def generate_circle_images(chart_data):
         plt.close(fig)
     return images
 
-def hotness_view(request):
-    current_dir = os.path.dirname(os.path.abspath(__file__))    
-    input_file = os.path.join(current_dir, '../..', 'common', 'data_gan_nhan.json')
-    hotness_data, chart_data = prepare_hotness_data(input_file)
-    
-    # Tạo hình ảnh cho các hình tròn
-    circle_images = generate_circle_images(chart_data)
+def hotness_filter(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'GET':
+        start_date = request.GET['start-date']
+        end_date = request.GET['end-date']
+        hotness_data, chart_data = prepare_hotness_data(start_date,end_date)
+        
+        # Tạo hình ảnh cho các hình tròn
+        circle_images = generate_circle_images(chart_data)
 
-    context = {
-        'hotness_data': hotness_data,
-        'circle_images': circle_images
-    }
-    return render(request, 'custommer/hotness/index.html', context)
+        context = {
+            'hotness_data': hotness_data,
+            'circle_images': circle_images
+        }
+        return render(request, 'custommer/hotness/partials/results_table.html', context)
+
+
+@login_required()
+def hotness_view(request):
+    return render(request, 'custommer/hotness/index.html')

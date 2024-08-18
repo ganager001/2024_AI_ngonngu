@@ -1,4 +1,4 @@
-import json
+import json,os
 import re
 import numpy as np
 import pandas as pd
@@ -118,10 +118,37 @@ def calculate_H2(group, total_df):
     H2 = (Hl + 2*Hc + 4*Hs) / 7
     return H2, Hl, Hc, Hs
 
-def calculate_hotness(input_file):
+def load_data(start_date,end_date):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_file = os.path.join(current_dir, '..', 'common', 'data_gan_nhan.json')
+    data_file = os.path.abspath(data_file)
+    with open(data_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    filtered_data = []
+
+    if start_date:
+        start_date = datetime.strptime(start_date, '%m/%d/%Y')
+    if end_date:
+        end_date = datetime.strptime(end_date, '%m/%d/%Y')
+
+    for item in data:
+        item_date_str = item.get('time')  # Giả sử có trường 'date'
+        if item_date_str:
+            try:
+                item_date = datetime.strptime(item_date_str, '%d/%m/%Y')
+                if start_date and end_date:
+                    if start_date <= item_date <= end_date:
+                        filtered_data.append(item)
+            except:
+                pass
+                continue
+ 
+    return filtered_data
+
+def calculate_hotness(start_date,end_date):
     # Đọc dữ liệu JSON
-    with open(input_file, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+    data = load_data(start_date,end_date)
 
     # Xử lý dữ liệu
     for record in data:

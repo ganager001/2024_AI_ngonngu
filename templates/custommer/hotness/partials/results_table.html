@@ -1,40 +1,57 @@
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Cụm chủ đề</th>
-                <th>H</th>
-                <th>H1</th>
-                <th>H2</th>
-                <th>Hl</th>
-                <th>Hc</th>
-                <th>Hs</th>
-                <th>Số bài viết</th>
-                <th>Tổng likes</th>
-                <th>Tổng comments</th>
-                <th>Keywords</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in results %}
-            <tr>
-                <td>{{ item.Cụm_chủ_đề }}</td>
-                <td>{{ item.H }}</td>
-                <td>{{ item.H1 }}</td>
-                <td>{{ item.H2 }}</td>
-                <td>{{ item.Hl }}</td>
-                <td>{{ item.Hc }}</td>
-                <td>{{ item.Hs }}</td>
-                <td>{{ item.Số_bài_viết }}</td>
-                <td>{{ item.Tổng_likes }}</td>
-                <td>{{ item.Tổng_comments }}</td>
-                <td>
-                    <span class="d-inline-block text-truncate" style="max-width: 150px;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ item.Keywords }}">
-                        {{ item.Keywords }}
-                    </span>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div style="overflow-x: auto; margin-top: 20px;">
+    <div class="box box-block bg-white" style="padding: 20px;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #ffffff;">
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cụm chủ đề</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>1</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>2</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>l</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>c</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">H<sub>s</sub></th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Số bài viết</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Tổng likes</th>
+                    <th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Tổng comments</th>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Keywords</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in hotness_data %}
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Cum_chu_de }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H1 }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.H2 }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hl }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hc }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Hs }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.So_bai_viet }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Tong_likes }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">{{ item.Tong_comments }}</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ item.Keywords }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Block mới thêm vào bên dưới bảng kết quả -->
+<div class="row" style="margin-top: 40px;">
+    {% for item in circle_images %}
+    <div class="col-md-6">
+        <div class="box box-block bg-white" style="padding: 20px;">
+            <h5>{{ item.topic }}</h5>
+            <p>Tổng likes: {{ item.total_likes }}</p>
+            <p>Tổng comments: {{ item.total_comments }}</p>
+            <p>Keywords: {{ item.keywords }}</p>
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="box box-block bg-white" style="padding: 20px;">
+            <img src="data:image/png;base64,{{ item.image }}" alt="{{ item.topic }}" />
+        </div>
+    </div>
+    {% endfor %}
 </div>

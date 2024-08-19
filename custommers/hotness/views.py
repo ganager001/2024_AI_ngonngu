@@ -13,7 +13,7 @@ def prepare_hotness_data(start_date,end_date):
     
     chart_data = []
     for row in hotness_data:
-        radius = row['H'] * 20  # Tính toán bán kính
+        radius = row['H'] * 25  # Tính toán bán kính
         chart_data.append({
             'topic': f"Chủ đề {row['Cum_chu_de']}",
             'hotness': row['H'],

@@ -19,8 +19,8 @@ def index(request):
 
 def load_data(start_date,end_date):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    data_file = os.path.join(current_dir, '..', 'common', 'data_gan_nhan.json')
-    data_file = os.path.abspath(data_file)
+    grandparent_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
+    data_file = os.path.join(grandparent_dir, 'common', 'data_gan_nhan.json')
     with open(data_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
 

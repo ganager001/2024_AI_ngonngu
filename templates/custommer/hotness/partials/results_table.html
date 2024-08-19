@@ -38,9 +38,9 @@
 </div>
 
 <!-- Block mới thêm vào bên dưới bảng kết quả -->
-<div class="row" style="margin-top: 40px;">
-    {% for item in circle_images %}
-    <div class="col-md-6">
+{% for item in circle_images %}
+<div class="row box-rightleft" style="margin-top: 40px;">
+    <div class="col-md-8">
         <div class="box box-block bg-white" style="padding: 20px;">
             <h5>{{ item.topic }}</h5>
             <p>Tổng likes: {{ item.total_likes }}</p>
@@ -48,10 +48,10 @@
             <p>Keywords: {{ item.keywords }}</p>
         </div>
     </div>
-    <div class="col-md-6 text-center">
-        <div class="box box-block bg-white" style="padding: 20px;">
-            <img src="data:image/png;base64,{{ item.image }}" alt="{{ item.topic }}" />
+    <div class="col-md-4">
+        <div class="box box-block bg-white" style="padding: 5px;">
+            <img style="width: 250px;" src="data:image/png;base64,{{ item.image }}" alt="{{ item.topic }}" />
         </div>
     </div>
-    {% endfor %}
 </div>
+{% endfor %}
